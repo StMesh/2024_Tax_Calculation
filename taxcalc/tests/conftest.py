@@ -38,21 +38,45 @@ def cps_subsample(cps_fullsample):
     # draw smaller cps.csv subsample than in test_cpscsv.py
     return cps_fullsample.sample(frac=0.01, random_state=123456789)
 
+@pytest.fixture(scope='session')
+def cpscsv_year():
+    return 2014
 
 @pytest.fixture(scope='session')
-def puf_path(tests_path):
-    return os.path.join(tests_path, '..', '..', 'puf.csv')
-
-
-@pytest.fixture(scope='session')
-def puf_fullsample(puf_path):
-    return pandas.read_csv(puf_path)
-
+def pufcsv_year():
+    return 2011
 
 @pytest.fixture(scope='session')
-def puf_subsample(puf_fullsample):
-    # draw same puf.csv subsample as in test_pufcsv.py
-    return puf_fullsample.sample(frac=0.05, random_state=2222)
+def test_data_path(tests_path):
+    return os.path.join(tests_path, '..', 'test_data.csv')
+
+@pytest.fixture(scope='session')
+def test_data_fullsample(test_data_path):
+    return pandas.read_csv(test_data_path)
+
+@pytest.fixture(scope='session')
+def test_data_subsample(test_data_fullsample):
+    return test_data_fullsample.sample(frac=0.05, random_state=56789)
+
+@pytest.fixture(scope='session')
+def test_weights_path(tests_path):
+    return os.path.join(tests_path, '..', 'test_weights.csv')
+
+@pytest.fixture(scope='session')
+def test_weights(test_weights_path):
+    return pandas.read_csv(test_weights_path)
+
+@pytest.fixture(scope='session')
+def test_ratios_path(tests_path):
+    return os.path.join(tests_path, '..', 'test_ratios.csv')
+
+@pytest.fixture(scope='session')
+def test_ratios(test_ratios_path):
+    return pandas.read_csv(test_ratios_path)
+
+@pytest.fixture(scope='session')
+def test_data_start_year():
+    return 2011
 
 
 @pytest.fixture(scope='session', name='test_reforms_init')
